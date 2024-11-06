@@ -133,8 +133,7 @@ class ConditionSelectorView(
         selectorValidityTempValue.set(RectF(selector.selectedArea))
 
         val isSelectorOverCapture = selectorValidityTempValue.intersect(capture.captureArea)
-        val isBiggerThanMinimumSize = selectorValidityTempValue.width() >= CAPTURE_MINIMUM_SIZE
-                && selectorValidityTempValue.height() >= CAPTURE_MINIMUM_SIZE
+        val isBiggerThanMinimumSize = true
 
         if ((isSelectorOverCapture && isBiggerThanMinimumSize) != isSelectorValid) {
             isSelectorValid = !isSelectorValid
@@ -213,7 +212,13 @@ class ConditionSelectorView(
         val captureArea = Rect(0, 0, bitmap.width, bitmap.height)
         if (!captureArea.intersect(area)) return null
 
-        return captureArea to Bitmap.createBitmap(bitmap, captureArea.left, captureArea.top, captureArea.width(), captureArea.height())
+        return captureArea to Bitmap.createBitmap(
+            bitmap,
+            captureArea.left,
+            captureArea.top,
+            captureArea.width(),
+            captureArea.height()
+        )
     }
 }
 
@@ -222,4 +227,4 @@ class ConditionSelectorView(
  * Final results will not always be the size, as it is relative to the capture viewport, but we just don't want a
  * null result.
  */
-private const val CAPTURE_MINIMUM_SIZE = 50f
+private const val CAPTURE_MINIMUM_SIZE = 1f
